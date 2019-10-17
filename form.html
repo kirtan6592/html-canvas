@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>Ajax form</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
+    <script>
+        // $("#form input").each(function () {
+        //     data[theFieldName] = theFieldValue;
+        // });
+
+
+        // $(document).ready(function () {
+        //     $("button").click(function () {
+        //         $('#myForm').ajaxForm({
+        //             dataType: 'json',
+        //             success: processJson
+        //         });
+        //     });
+        // });
+        // function processJson(data) {
+        //     alert(data.message);
+        //     console.log(data.name);
+        // }
+
+
+        $("#my_form").submit(function (event) {
+            event.preventDefault(); //prevent default action 
+            var post_url = $(this).attr("action"); //get form action url
+            var form_data = $(this).serialize(); //Encode form elements for submission
+
+            $.getJSON(post_url, form_data, function (response) {
+                //iterate json response
+                $.each(response, function (key, val) {
+                    $("#server-results").append(val + "<br />"); //append results to element
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form method="post" id="my_form">
+        Name: <input type="text" name="name" />
+        Comment: <textarea name="comment"></textarea>
+        <input type="submit" name="g" value="Submit" id="g">
+    </form>
+</body>
+
+</html>

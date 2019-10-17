@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").mouseenter(function () {
+                $("canvas").show();
+                $("canvas:even").css("background-color", "yellow");
+                //$("canvas:odd").css("background-color", "red");
+                $("#jsonDiv").load("dummyData.json");
+                // $.getJSON("dummyData.json", function (result) {
+                //     $.each(result, function (i, field) {
+                //         $("#jsonDiv").append(field + "");
+                //     })
+                // });
+                $.post("dummyData.json",{fruit:"test fruit",size:"test size", color:"test color"});
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button onclick="createCanvas()">Click</button>
+
+    <canvas id="myCanvas">
+        Canvas goes here....
+    </canvas>
+
+    <canvas hidden id="myCanvas1" width="200" height="100" style="border:1px solid #000000;">
+        Canvas 1 goes here....
+    </canvas>
+
+    <canvas hidden id="myCanvas2" width="200" height="100" style="border:1px solid #000000;">
+        Canvas 2 goes here....
+    </canvas>
+
+    <canvas hidden id="myCanvas3" width="200" height="100" style="border:1px solid #000000;">
+        Canvas 3 goes here....
+    </canvas>
+
+    <canvas hidden id="myCanvas4" style="border:1px solid #000000;">
+        Canvas 4 goes here....
+    </canvas>
+    <div id="jsonDiv"></div>
+</body>
+<script>
+    function createCanvas() {
+        var c = document.getElementById("myCanvas");
+        console.log(c.getContext);
+        if (c.getContext) {
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+            ctx.stroke();
+        } else {
+            alert("Your browser doesn't support this feature");
+        }
+
+        var c1 = document.getElementById("myCanvas1");
+        if (c.getContext) {
+            var ctx1 = c1.getContext("2d");
+            ctx1.beginPath();
+            var grd = ctx1.createRadialGradient(75, 50, 5, 90, 60, 100);
+            grd.addColorStop(0, "red");
+            grd.addColorStop(1, "white");
+
+            // Fill with gradient
+            ctx1.fillStyle = grd;
+            ctx1.fillRect(10, 10, 150, 80);
+        } else {
+            alert("Your browser doesn't support this feature");
+        }
+
+        var c2 = document.getElementById("myCanvas2");
+        if (c2.getContext) {
+            var ctx2 = c2.getContext("2d");
+            ctx2.beginPath();
+            ctx2.moveTo(100, 200);
+            ctx2.lineTo(105, 25);
+            ctx2.lineTo(150, 25);
+            ctx2.fill();
+
+        } else {
+            alert("Your browser doesn't support this feature");
+        }
+
+        var c3 = document.getElementById("myCanvas3");
+        if (c3.getContext) {
+            var ctx3 = c3.getContext("2d");
+            ctx3.beginPath();
+            ctx3.moveTo(75, 25);
+            ctx3.quadraticCurveTo(25, 25, 25, 62.5);
+
+            ctx3.quadraticCurveTo(25, 100, 50, 100);
+            ctx3.quadraticCurveTo(50, 120, 30, 125);
+
+            ctx3.quadraticCurveTo(60, 120, 65, 100);
+            ctx3.quadraticCurveTo(125, 100, 125, 62.5);
+
+            ctx3.quadraticCurveTo(125, 25, 75, 25);
+            ctx3.stroke();
+
+        } else {
+            alert("Your browser doesn't support this feature");
+        }
+
+        var c4 = document.getElementById("myCanvas4");
+        if (c4.getContext) {
+            var ctx4 = c4.getContext("2d");
+            var image = new Image();
+            image.src = '/html demostration/images/image1.jpg';
+            image.onload = function () {
+                ctx4.drawImage(image, 0, 0);
+                ctx4.beginPath();
+                ctx4.moveTo(30, 90);
+                ctx4.lineTo(70, 66);
+
+                ctx4.lineTo(100, 76);
+                ctx4.lineTo(170, 15);
+                ctx4.stroke();
+            }
+        } else {
+            alert("Your browser doesn't support this feature");
+        }
+    }
+
+</script>
+
+</html>

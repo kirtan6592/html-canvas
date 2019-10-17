@@ -1,0 +1,136 @@
+<html>
+
+<body>
+    <canvas id="arcCanvas" width="400" height="400">
+    </canvas>
+    <canvas id="quaCanvas" width="400" height="400">
+    </canvas>
+    <canvas id="pathCanvas" width="400" height="400">
+    </canvas>
+    <canvas id="wifiCanvas" width="400" height="400">
+    </canvas>
+    <canvas id="mouseCanvas" width="400" height="400" style="border:1px solid">
+    </canvas>
+    <script>
+        var canvas = document.getElementById('arcCanvas');
+        var context = canvas.getContext('2d');
+        var x = canvas.width / 2;
+        var y = canvas.height / 2;
+        var radius = 100;
+        var startAngle = 1 * Math.PI;
+        var endAngle = 1.5 * Math.PI;
+        var isClockwise = false;
+        context.beginPath();
+        context.arc(x, y, radius, startAngle, endAngle, isClockwise);
+        context.moveTo(0 * Math.PI, 0.5 * Math.PI);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+
+
+        context.beginPath();
+        context.arc(x, y, radius, 0 * Math.PI, 0.5 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+    </script>
+
+    <script>
+        var canvas = document.getElementById('quaCanvas');
+        var context = canvas.getContext('2d');
+
+
+        context.beginPath();
+        context.moveTo(188, 150);
+        context.quadraticCurveTo(288, 0, 388, 150);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+    </script>
+
+    <script>
+        var canvas = document.getElementById('pathCanvas');
+        var context = canvas.getContext('2d');
+        context.beginPath();
+        context.font = 'italic 40pt Calibri';
+        context.fillText('Hello World!', 0, 50);
+        context.strokeText('Hello World!', 100, 150);
+        context.strokeStyle = 'blue';
+        context.moveTo(100, 20);
+        context.lineTo(200, 160);
+        context.quadraticCurveTo(230, 200, 250, 120);
+        context.lineWidth = 5;
+        context.strokeStyle = 'blue';
+        context.stroke();
+    </script>
+
+    <script>
+        var canvas = document.getElementById('wifiCanvas');
+        var context = canvas.getContext('2d');
+        var x = canvas.width / 2;
+        var y = canvas.height / 2;
+
+        var isClockwise = false;
+        context.beginPath();
+        context.arc(x, y, 0.05, 1 * Math.PI, 0 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, 20, 1.2 * Math.PI, 1.8 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, 40, 1.2 * Math.PI, 1.8 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, 60, 1.2 * Math.PI, 1.8 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, 80, 1.2 * Math.PI, 1.8 * Math.PI, isClockwise);
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
+    </script>
+
+    <script>
+        var canvas = document.getElementById('mouseCanvas');
+        var context = canvas.getContext('2d');
+        var radius = 50;
+        var nStartX = 0;
+        var nStartY = 0;
+        var bIsDrawing = false;
+        context.beginPath();
+        var putPoint = function (e) {
+            nStartX = e.clientX; nStartY = e.clientY; bIsDrawing = true; radius = 0;
+            bIsDrawing = true;
+            console.log(nStartX);
+        }
+
+        var drawPoint = function (e) {
+            if (!bIsDrawing)
+                return;
+            var nDeltaX = nStartX - e.clientX;
+            var nDeltaY = nStartY - e.clientY;
+            radius = Math.sqrt(nDeltaX * nDeltaX + nDeltaY * nDeltaY)
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath();
+            context.arc(nStartX, nStartY, radius, 0, Math.PI * 2);
+            context.fill();
+        }
+        var stopPoint = function (e) {
+            bIsDrawing = false;
+        }
+
+        canvas.addEventListener('mousedown', putPoint);
+        canvas.addEventListener('mousemove', drawPoint);
+        canvas.addEventListener('mouseup', stopPoint);
+    </script>
+</body>
+
+</html>

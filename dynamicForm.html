@@ -1,0 +1,41 @@
+<html>
+
+<body>
+    <div>Registration Form</div>
+    <button>Add More Field</button>
+    <form>
+    <div id="dynamicForm">
+    </div>
+    </form>
+    <input type='submit' id='savebutton' value='Save' />
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var count = 0;
+    $("#dynamicForm").append("<table>");
+    $("#dynamicForm table").append("<tr><td><label>First Name:</label><input type='text' name='firstName' id='fName'></td></tr>");
+    $("#dynamicForm table").append("<tr><td><label>Last Name:</label><input type='text' name='lastName' id='lName'></td></tr>");
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            count = count + 1;
+            $("#dynamicForm table").append("<tr><td><label>Field:" + count + "</label><input type='text' name='Field" + count + "' id='field" + count + "'><button onclick='onRemove()'>Remove</button></td></tr>");
+        })
+    })
+
+</script>
+
+<script>
+    function onRemove() {
+        debugger
+        $("#dynamicForm tr").click(function () {
+            $(this).remove();
+            if (count >= 1) { count = count - 1; }
+        });
+    }
+
+</script>
+
+</html>

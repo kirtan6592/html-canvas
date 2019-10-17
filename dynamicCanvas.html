@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                if ($("form").validate()) {
+                    $("canvas").show();
+                    $("canvas:even").css("background-color", $("#favColor").val());
+                    jQuery('#dynamicCanvas').append('<canvas id="my-canvas"> </canvas>');
+                    //draw();
+                    var canvas = document.getElementById("my-canvas");
+                    if ($("#height").val() != "" && $("#width").val() != "") {
+                        if (canvas.getContext) {
+                            canvas.width = $("#width").val();
+                            canvas.height = $("#height").val();
+                            var context = canvas.getContext("2d");
+                            context.fillStyle = "red";
+                            context.strokeStyle = $("#textColor").val();
+
+                            context.font = "italic small-caps bold 44pt 'Comic Sans MS'";
+                            context.textAlign = "left";
+                            context.strokeText($("#text").val(), 10, 100);
+                            context.fillText("World!", 10 + context.measureText("Hello ").width, 100);
+                        }
+                    } else {
+                        alert("Please enter all data to create canvas");
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        function draw() {
+
+            if ($("#height").val() != "" && $("#width").val() != "") {
+                $("#my-canvas").remove();
+                jQuery('#dynamicCanvas').append('<canvas id="my-canvas"> </canvas>');
+                var canvas = document.getElementById("my-canvas");
+                if (canvas.getContext) {
+                    $("#my-canvas").css("background-color", $("#favColor").val());
+                    canvas.width = $("#width").val();
+                    canvas.height = $("#height").val();
+                    var context = canvas.getContext("2d");
+
+                    context.beginPath();
+                    context.fillStyle = "red";
+                    context.strokeStyle = $("#textColor").val();
+
+                    context.font = "italic small-caps bold 44pt 'Comic Sans MS'";
+                    context.textAlign = "left";
+                    context.lineCap = 'square';
+                    context.strokeText($("#text").val(), 10, 100);
+                    //context.fillText("World!", 10 + context.measureText("Hello ").width, 100);
+
+                }
+            } else {
+                alert("Please enter all data to create canvas");
+            }
+        }
+        // $(function() {
+        // $('#myFile').change(function (e) {
+        //     var file = e.target.files[0],
+        //         imageType = /image.*/;
+
+        //     if (!file.type.match(imageType))
+        //         return;
+
+        //     var reader = new FileReader();
+        //     reader.onload = fileOnload;
+        //     reader.readAsDataURL(file);
+        // });
+
+        // function fileOnload(e) {
+        //     var $img = $('<img>', { src: e.target.result });
+        //     $img.load(function () {
+        //         var canvas = $('#my-canvas')[0];
+        //         var context = canvas.getContext('2d');
+
+        //         canvas.width = 200;
+        //         canvas.height = 100;
+        //         context.drawImage(this, 0, 0);
+        //     });
+        // }
+        // });
+    </script>
+</head>
+
+<body>
+    <!-- <form> -->
+    <table>
+        <tr>
+            <td>
+                <label>Enter Canvas Width:</label> <input type="text" name="canvasWidth" id="width" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Enter Canvas Height:</label> <input type="text" name="canvasHeight" id="height" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Enter Text You want to put in Canvas:</label> <input type="text" name="canvasText" id="text" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Select Color of Canvas:</label> <input type="color" name="favcolor" id="favColor" value="#ff0000">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Select Text Color for Canvas:</label> <input type="color" name="textcolor" id="textColor" value="#ff0000">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Select Image for Canvas:</label> <input type="file" id="myFile">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- <button>Click</button> -->
+                <input type="button" onclick="draw()" name="Create" value="Create" />
+            </td>
+        </tr>
+    </table>
+    <!-- </form> -->
+    <div id="dynamicCanvas"></div>
+</body>
+
+
+</html>

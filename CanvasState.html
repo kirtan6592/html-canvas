@@ -1,0 +1,29 @@
+<html>
+
+<body>
+    <canvas id="myCanvasState" width="1000px" height="1000px"></canvas>
+    <script type="text/javascript">
+        var canvas = document.getElementById('myCanvasState');
+
+        if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+
+            ctx.fillRect(0, 0, 150, 150);
+            ctx.save();
+
+            ctx.fillStyle = '#66FFFF'
+            ctx.save();
+            ctx.fillRect(160, 0, 150, 150);
+
+            ctx.restore();
+            ctx.fillRect(320, 0, 150, 150);
+
+            ctx.restore();
+            ctx.fillRect(480, 0, 150, 150);
+        } else {
+            alert('You need Safari or Firefox 1.5+ to see this demo.');
+        }
+    </script>
+</body>
+
+</html>
